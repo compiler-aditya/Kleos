@@ -138,20 +138,20 @@ export function VoiceCloneModal({ episodeId, era }: VoiceCloneModalProps) {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm px-4"
+        className="fixed inset-0 z-50 flex items-center justify-center bg-surface/70 backdrop-blur-sm px-4"
         onClick={(e) => { if (e.target === e.currentTarget) handleClose(); }}
       >
         <motion.div
           initial={{ scale: 0.95, y: 16 }}
           animate={{ scale: 1, y: 0 }}
           exit={{ scale: 0.95, y: 16 }}
-          className="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 w-full max-w-sm space-y-5"
+          className="glass-panel border border-outline-variant/20 rounded-2xl p-6 w-full max-w-sm space-y-5"
         >
           {/* Header */}
           <div className="flex items-start justify-between">
             <div>
-              <h2 className="text-base font-semibold text-zinc-100">Be Part of This Story</h2>
-              <p className="text-xs text-zinc-500 mt-0.5">
+              <h2 className="text-base font-headline font-bold text-on-surface">Be Part of This Story</h2>
+              <p className="text-xs text-on-surface-variant mt-0.5">
                 {modalState === 'idle' && 'Record your voice — we\'ll put you in the documentary.'}
                 {modalState === 'recording' && `Recording... ${elapsed}s / ${MAX_SECONDS}s`}
                 {modalState === 'processing' && 'Cloning your voice and generating your moment...'}
@@ -161,9 +161,9 @@ export function VoiceCloneModal({ episodeId, era }: VoiceCloneModalProps) {
             </div>
             <button
               onClick={handleClose}
-              className="text-zinc-600 hover:text-zinc-300 transition-colors text-lg leading-none ml-4"
+              className="text-outline hover:text-on-surface transition-colors text-lg leading-none ml-4"
             >
-              ✕
+              &#10005;
             </button>
           </div>
 
@@ -173,10 +173,10 @@ export function VoiceCloneModal({ episodeId, era }: VoiceCloneModalProps) {
               <div className="relative w-24 h-24">
                 {/* Progress ring */}
                 <svg className="w-full h-full -rotate-90" viewBox="0 0 96 96">
-                  <circle cx="48" cy="48" r="42" fill="none" stroke="#27272a" strokeWidth="4" />
+                  <circle cx="48" cy="48" r="42" fill="none" stroke="#1c253e" strokeWidth="4" />
                   <circle
                     cx="48" cy="48" r="42" fill="none"
-                    stroke="#d97706" strokeWidth="4"
+                    stroke="#ffb148" strokeWidth="4"
                     strokeDasharray={`${2 * Math.PI * 42}`}
                     strokeDashoffset={`${2 * Math.PI * 42 * (1 - progressPct / 100)}`}
                     strokeLinecap="round"
@@ -188,25 +188,25 @@ export function VoiceCloneModal({ episodeId, era }: VoiceCloneModalProps) {
                   onClick={modalState === 'idle' ? handleStartRecording : stopRecording}
                   className={`absolute inset-0 m-3 rounded-full flex items-center justify-center transition-colors ${
                     modalState === 'recording'
-                      ? 'bg-red-700 hover:bg-red-600'
-                      : 'bg-zinc-800 hover:bg-zinc-700'
+                      ? 'bg-error-dim hover:bg-error'
+                      : 'bg-surface-container hover:bg-surface-container-high'
                   }`}
                 >
                   {modalState === 'recording' ? (
                     <motion.div
                       animate={{ scale: [1, 1.15, 1] }}
                       transition={{ duration: 0.8, repeat: Infinity }}
-                      className="w-5 h-5 bg-red-400 rounded-sm"
+                      className="w-5 h-5 bg-error rounded-sm"
                     />
                   ) : (
-                    <svg className="w-7 h-7 text-zinc-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                    <svg className="w-7 h-7 text-on-surface-variant" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z" />
                     </svg>
                   )}
                 </button>
               </div>
 
-              <p className="text-xs text-zinc-500 text-center">
+              <p className="text-xs text-on-surface-variant text-center">
                 {modalState === 'idle'
                   ? 'Tap the mic and speak for at least 5 seconds'
                   : elapsed < MIN_SECONDS
@@ -217,7 +217,7 @@ export function VoiceCloneModal({ episodeId, era }: VoiceCloneModalProps) {
               {modalState === 'recording' && canSubmit && (
                 <button
                   onClick={() => { stopRecording(); }}
-                  className="text-xs text-amber-400 hover:text-amber-300"
+                  className="text-xs text-tertiary hover:text-tertiary-dim"
                 >
                   Stop recording
                 </button>
@@ -229,12 +229,12 @@ export function VoiceCloneModal({ episodeId, era }: VoiceCloneModalProps) {
           {modalState === 'processing' && (
             <div className="flex flex-col items-center gap-3 py-6">
               <motion.div
-                className="w-10 h-10 border-2 border-amber-500 border-t-transparent rounded-full"
+                className="w-10 h-10 border-2 border-tertiary border-t-transparent rounded-full"
                 animate={{ rotate: 360 }}
                 transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
               />
-              <p className="text-xs text-zinc-400 text-center">
-                Cloning voice · Writing your line · Generating portrait
+              <p className="text-xs text-on-surface-variant text-center">
+                Cloning voice &middot; Writing your line &middot; Generating portrait
               </p>
             </div>
           )}
@@ -244,11 +244,11 @@ export function VoiceCloneModal({ episodeId, era }: VoiceCloneModalProps) {
             <div className="space-y-4">
               <div className="flex items-center gap-4">
                 {result.portraitUrl && (
-                  <div className="w-16 h-20 rounded-lg overflow-hidden flex-shrink-0 border border-zinc-700">
+                  <div className="w-16 h-20 rounded-lg overflow-hidden flex-shrink-0 border border-outline-variant/30">
                     <img src={result.portraitUrl} alt="Your historical portrait" className="w-full h-full object-cover" />
                   </div>
                 )}
-                <p className="text-sm text-zinc-300 italic leading-relaxed">
+                <p className="text-sm text-on-surface/80 italic leading-relaxed">
                   &ldquo;{result.statement}&rdquo;
                 </p>
               </div>
@@ -256,9 +256,9 @@ export function VoiceCloneModal({ episodeId, era }: VoiceCloneModalProps) {
                 src={result.audioUrl}
                 controls
                 autoPlay
-                className="w-full h-8 accent-amber-500"
+                className="w-full h-8 accent-tertiary"
               />
-              <p className="text-xs text-zinc-600 text-center">
+              <p className="text-xs text-on-surface-variant/60 text-center">
                 Your voice is now part of {era !== 'the historical period' ? era : 'history'}.
               </p>
             </div>
@@ -267,10 +267,10 @@ export function VoiceCloneModal({ episodeId, era }: VoiceCloneModalProps) {
           {/* Error */}
           {modalState === 'error' && (
             <div className="text-center py-4 space-y-3">
-              <p className="text-sm text-red-400">{errorMsg}</p>
+              <p className="text-sm text-error">{errorMsg}</p>
               <button
                 onClick={() => { setModalState('idle'); setElapsed(0); setAudioChunks([]); }}
-                className="text-xs text-zinc-400 hover:text-zinc-200"
+                className="text-xs text-on-surface-variant hover:text-on-surface"
               >
                 Try again
               </button>
@@ -281,7 +281,7 @@ export function VoiceCloneModal({ episodeId, era }: VoiceCloneModalProps) {
           {modalState === 'recording' && canSubmit && audioChunks.length > 0 && (
             <button
               onClick={() => { stopRecording(); setTimeout(handleSubmit, 300); }}
-              className="w-full py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-black text-sm font-medium transition-colors"
+              className="w-full py-2.5 rounded-xl bg-tertiary hover:bg-tertiary-dim text-surface text-sm font-headline font-bold transition-colors uppercase tracking-wider"
             >
               Submit &amp; Clone My Voice
             </button>
@@ -290,7 +290,7 @@ export function VoiceCloneModal({ episodeId, era }: VoiceCloneModalProps) {
           {audioChunks.length > 0 && modalState === 'idle' && (
             <button
               onClick={handleSubmit}
-              className="w-full py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-black text-sm font-medium transition-colors"
+              className="w-full py-2.5 rounded-xl bg-tertiary hover:bg-tertiary-dim text-surface text-sm font-headline font-bold transition-colors uppercase tracking-wider"
             >
               Submit &amp; Clone My Voice
             </button>

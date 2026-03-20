@@ -36,7 +36,7 @@ export function SceneIllustration({ url, sceneIndex, title, mood }: SceneIllustr
   const effect = EFFECTS[sceneIndex % EFFECTS.length];
 
   return (
-    <div className="ken-burns-container w-full h-full bg-zinc-900">
+    <div className="ken-burns-container w-full h-full bg-surface-container">
       <AnimatePresence mode="wait">
         <motion.img
           key={url}
@@ -55,7 +55,7 @@ export function SceneIllustration({ url, sceneIndex, title, mood }: SceneIllustr
         />
       </AnimatePresence>
       {mood && (
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black/70 to-transparent pointer-events-none" />
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-surface/80 to-transparent pointer-events-none" />
       )}
     </div>
   );

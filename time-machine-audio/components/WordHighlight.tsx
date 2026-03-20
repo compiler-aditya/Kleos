@@ -21,7 +21,7 @@ export function WordHighlight({ alignmentData, currentWordIndex }: WordHighlight
   return (
     <div
       ref={containerRef}
-      className="relative overflow-hidden max-h-32 leading-relaxed text-base text-zinc-400"
+      className="relative overflow-hidden max-h-32 leading-relaxed text-base text-on-surface-variant"
       style={{ maskImage: 'linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%)' }}
     >
       <p className="flex flex-wrap gap-x-1 gap-y-0.5 px-4 py-2">
@@ -34,10 +34,10 @@ export function WordHighlight({ alignmentData, currentWordIndex }: WordHighlight
               ref={isActive ? activeRef : undefined}
               className={
                 isActive
-                  ? 'text-amber-300 font-semibold transition-colors duration-100'
+                  ? 'text-tertiary font-semibold transition-colors duration-100'
                   : isPast
-                  ? 'text-zinc-500 transition-colors duration-200'
-                  : 'text-zinc-500'
+                  ? 'text-on-surface-variant/40 transition-colors duration-200'
+                  : 'text-on-surface-variant/30'
               }
             >
               {w.word}

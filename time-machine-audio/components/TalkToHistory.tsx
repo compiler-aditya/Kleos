@@ -90,8 +90,8 @@ export function TalkToHistory({
   return (
     <div className="space-y-6">
       <div className="text-center space-y-1">
-        <h2 className="text-lg font-medium text-zinc-200">Talk to History</h2>
-        <p className="text-sm text-zinc-500">
+        <h2 className="font-headline text-lg font-bold text-on-surface">Talk to History</h2>
+        <p className="text-sm text-on-surface-variant">
           {isConnected ? `Speaking with ${activeChar?.name}` : 'Choose a historical figure to interview'}
         </p>
       </div>
@@ -110,31 +110,31 @@ export function TalkToHistory({
               disabled={isStarting || (isConnected && !isActive)}
               className={`group flex flex-col items-center gap-2 p-3 rounded-xl border transition-all duration-200 disabled:opacity-40 ${
                 isActive && isConnected
-                  ? 'border-amber-600 bg-amber-950/30'
-                  : 'border-zinc-800 hover:border-zinc-600 bg-zinc-900/50'
+                  ? 'border-tertiary bg-tertiary/10'
+                  : 'border-outline-variant/20 hover:border-outline-variant bg-surface-container/50'
               }`}
             >
-              <div className="relative w-16 h-16 rounded-full overflow-hidden bg-zinc-800">
+              <div className="relative w-16 h-16 rounded-full overflow-hidden bg-surface-container">
                 {portraitUrl ? (
                   <img src={portraitUrl} alt={char.name} className="w-full h-full object-cover" />
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center text-2xl text-zinc-500">
+                  <div className="w-full h-full flex items-center justify-center text-2xl text-outline">
                     {char.name[0]}
                   </div>
                 )}
                 {isActive && isConnected && (
-                  <div className="absolute inset-0 flex items-center justify-center bg-black/40">
+                  <div className="absolute inset-0 flex items-center justify-center bg-surface/40">
                     <motion.div
                       animate={isSpeaking ? { scale: [1, 1.2, 1] } : {}}
                       transition={{ duration: 0.8, repeat: Infinity }}
-                      className="w-4 h-4 bg-amber-400 rounded-full"
+                      className="w-4 h-4 bg-tertiary rounded-full"
                     />
                   </div>
                 )}
               </div>
               <div className="text-center">
-                <p className="text-xs font-medium text-zinc-200 leading-tight">{char.name}</p>
-                <p className="text-xs text-zinc-600 capitalize">{char.role}</p>
+                <p className="text-xs font-medium text-on-surface leading-tight">{char.name}</p>
+                <p className="text-xs text-on-surface-variant capitalize">{char.role}</p>
               </div>
             </button>
           );
@@ -148,18 +148,18 @@ export function TalkToHistory({
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="bg-zinc-900 border border-zinc-800 rounded-xl p-4 space-y-3"
+            className="glass-panel border border-outline-variant/20 rounded-xl p-4 space-y-3"
           >
             <div className="flex items-center gap-2">
               <div
-                className={`w-2 h-2 rounded-full ${isSpeaking ? 'bg-amber-400 animate-pulse' : 'bg-zinc-600'}`}
+                className={`w-2 h-2 rounded-full ${isSpeaking ? 'bg-tertiary animate-pulse' : 'bg-outline'}`}
               />
-              <span className="text-xs text-zinc-400">
+              <span className="text-xs text-on-surface-variant">
                 {isSpeaking ? `${activeChar.name} is speaking...` : 'Listening to you...'}
               </span>
               <button
                 onClick={handleEndConversation}
-                className="ml-auto text-xs text-zinc-500 hover:text-red-400 transition-colors"
+                className="ml-auto text-xs text-on-surface-variant hover:text-error transition-colors"
               >
                 End conversation
               </button>
@@ -170,7 +170,7 @@ export function TalkToHistory({
                   key={agentMessage}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  className="text-sm text-zinc-300 italic leading-relaxed"
+                  className="text-sm text-on-surface/80 italic leading-relaxed"
                 >
                   &ldquo;{agentMessage}&rdquo;
                 </motion.p>
