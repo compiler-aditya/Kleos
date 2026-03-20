@@ -44,32 +44,34 @@ export function EventInput({ onGenerating }: EventInputProps) {
   };
 
   return (
-    <div className="w-full max-w-xl mx-auto space-y-4">
-      <form onSubmit={handleSubmit} className="flex gap-2">
-        <input
-          type="text"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder="Or type: Travel back to..."
-          disabled={loading}
-          className="flex-1 bg-zinc-900 border border-zinc-700 rounded-full px-5 py-3 text-sm text-zinc-100 placeholder:text-zinc-600 focus:outline-none focus:border-amber-600 disabled:opacity-50 transition-colors"
-        />
-        <button
-          type="submit"
-          disabled={loading || !query.trim()}
-          className="bg-amber-600 hover:bg-amber-500 disabled:opacity-40 disabled:cursor-not-allowed text-black font-semibold text-sm px-6 py-3 rounded-full transition-colors whitespace-nowrap"
-        >
-          {loading ? 'Building...' : 'Travel'}
-        </button>
+    <div className="w-full max-w-2xl mx-auto space-y-8">
+      <form onSubmit={handleSubmit} className="relative group">
+        <div className="relative flex items-center bg-surface-container-lowest/40 backdrop-blur-xl rounded-full border border-outline-variant/20 focus-within:border-tertiary transition-all duration-500 shadow-2xl shadow-black/50">
+          <input
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Travel back to..."
+            disabled={loading}
+            className="w-full bg-transparent border-none focus:ring-0 text-lg py-6 px-10 text-on-surface placeholder:text-on-surface-variant/40 font-light tracking-wide disabled:opacity-50"
+          />
+          <button
+            type="submit"
+            disabled={loading || !query.trim()}
+            className="mr-4 bg-tertiary hover:bg-tertiary-dim disabled:opacity-40 disabled:cursor-not-allowed text-surface font-headline font-bold text-sm px-6 py-3 rounded-full transition-colors whitespace-nowrap uppercase tracking-widest"
+          >
+            {loading ? 'Building...' : 'Travel'}
+          </button>
+        </div>
       </form>
 
-      <div className="flex flex-wrap justify-center gap-2">
+      <div className="flex flex-wrap justify-center gap-3">
         {SUGGESTED_EVENTS.map((event) => (
           <button
             key={event}
             onClick={() => submit(event)}
             disabled={loading}
-            className="text-xs text-zinc-400 border border-zinc-800 hover:border-amber-700 hover:text-amber-400 px-3 py-1.5 rounded-full transition-colors disabled:opacity-40"
+            className="px-5 py-2 rounded-full border border-outline-variant/30 text-sm tracking-wide text-on-surface-variant hover:border-tertiary/40 hover:text-tertiary transition-all duration-300 bg-surface-container-low/50 backdrop-blur-md disabled:opacity-40"
           >
             {event}
           </button>
