@@ -171,6 +171,42 @@ export async function generateSFX(
   return results;
 }
 
+// ── Instant Voice Clone ─────────────────────────────────────────
+
+export async function instantVoiceClone(
+  audioBuffer: Buffer,
+  name: string
+): Promise<string> {
+  return withRetry(
+    async () => {
+      const voice = await client.voices.ivc.create({
+        name,
+        files: [{ data: audioBuffer, filename: 'voice.webm', contentType: 'audio/webm' }],
+      });
+      return voice.voiceId;
+    },
+    { maxRetries: 2, label: 'ivc' }
+  );
+}
+
+// ── You Were There TTS ───────────────────────────────────────────
+
+export async function generateYouWereThereAudio(
+  statement: string,
+  voiceId: string
+): Promise<Buffer> {
+  const stream = await withRetry(
+    () =>
+      client.textToSpeech.convert(voiceId, {
+        text: statement,
+        modelId: 'eleven_multilingual_v2',
+        outputFormat: 'mp3_44100_128',
+      }),
+    { maxRetries: 2, label: 'you-were-there-tts' }
+  );
+  return streamToBuffer(stream);
+}
+
 // ── Music ───────────────────────────────────────────────────────
 
 export async function generateMusic(
