@@ -25,6 +25,29 @@ async function callGemini(prompt: string): Promise<unknown> {
   return JSON.parse(text);
 }
 
+export async function generateYouWereThereStatement(
+  eventQuery: string,
+  era: string,
+  scriptTitle: string
+): Promise<string> {
+  const prompt = `You were a bystander witnessing "${scriptTitle}" (${era}).
+Write exactly ONE sentence (under 20 words) in first-person present tense expressing raw awe or disbelief at what you are seeing.
+No quotation marks. Just the sentence itself.`;
+
+  return withRetry(
+    async () => {
+      const response = await ai.models.generateContent({
+        model: MODEL,
+        contents: prompt,
+      });
+      const text = response.text?.trim();
+      if (!text) throw new Error('Empty response from Gemini');
+      return text;
+    },
+    { maxRetries: 2, label: 'you-were-there-statement' }
+  );
+}
+
 export async function generateScript(
   eventQuery: string,
   researchData: string
