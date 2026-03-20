@@ -54,7 +54,6 @@ export function VoiceLanding({ conciergeAgentId }: VoiceLandingProps) {
       setShareCardVisible(true);
       return 'Share card displayed';
     },
-    // Historical agent tools (handled on episode page, no-op here)
     navigate_timeline: () => 'Navigate to episode page',
     show_illustration: () => 'Illustration available on episode page',
     show_source: () => 'Source available on episode page',
@@ -100,13 +99,13 @@ export function VoiceLanding({ conciergeAgentId }: VoiceLandingProps) {
         {isConnected && isSpeaking && (
           <>
             <motion.div
-              className="absolute rounded-full border border-amber-500/30"
+              className="absolute rounded-full border border-tertiary/30"
               initial={{ width: 80, height: 80, opacity: 0.6 }}
               animate={{ width: 160, height: 160, opacity: 0 }}
               transition={{ duration: 1.5, repeat: Infinity, ease: 'easeOut' }}
             />
             <motion.div
-              className="absolute rounded-full border border-amber-400/20"
+              className="absolute rounded-full border border-tertiary/20"
               initial={{ width: 80, height: 80, opacity: 0.4 }}
               animate={{ width: 200, height: 200, opacity: 0 }}
               transition={{ duration: 1.5, repeat: Infinity, ease: 'easeOut', delay: 0.4 }}
@@ -116,7 +115,7 @@ export function VoiceLanding({ conciergeAgentId }: VoiceLandingProps) {
         {/* Idle pulse when connected but not speaking */}
         {isConnected && !isSpeaking && (
           <motion.div
-            className="absolute w-20 h-20 rounded-full border border-zinc-600/50"
+            className="absolute w-20 h-20 rounded-full border border-outline/50"
             animate={{ scale: [1, 1.1, 1] }}
             transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
           />
@@ -127,20 +126,20 @@ export function VoiceLanding({ conciergeAgentId }: VoiceLandingProps) {
           disabled={isConnecting || isStarting}
           className={`relative w-20 h-20 rounded-full flex items-center justify-center transition-all duration-300 ${
             isConnected
-              ? 'bg-amber-600 hover:bg-amber-500 shadow-lg shadow-amber-900/40'
-              : 'bg-zinc-800 hover:bg-zinc-700 border border-zinc-600'
+              ? 'bg-tertiary hover:bg-tertiary-dim shadow-lg shadow-tertiary/20'
+              : 'bg-surface-container hover:bg-surface-container-high border border-outline-variant'
           } disabled:opacity-40 disabled:cursor-not-allowed`}
         >
           {isConnecting || isStarting ? (
             <motion.div
-              className="w-5 h-5 border-2 border-amber-400 border-t-transparent rounded-full"
+              className="w-5 h-5 border-2 border-tertiary border-t-transparent rounded-full"
               animate={{ rotate: 360 }}
               transition={{ duration: 0.8, repeat: Infinity, ease: 'linear' }}
             />
           ) : isConnected ? (
-            <span className="text-black text-2xl">◉</span>
+            <span className="text-surface text-2xl">&#9673;</span>
           ) : (
-            <svg className="w-7 h-7 text-zinc-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+            <svg className="w-7 h-7 text-on-surface-variant" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z" />
             </svg>
           )}
@@ -148,7 +147,7 @@ export function VoiceLanding({ conciergeAgentId }: VoiceLandingProps) {
       </div>
 
       {/* Status label */}
-      <p className="text-xs text-zinc-500 tracking-wider uppercase">
+      <p className="text-xs text-on-surface-variant tracking-wider uppercase">
         {isConnecting || isStarting
           ? 'Connecting...'
           : isConnected
@@ -165,7 +164,7 @@ export function VoiceLanding({ conciergeAgentId }: VoiceLandingProps) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="text-center text-sm text-zinc-300 max-w-sm leading-relaxed italic"
+            className="text-center text-sm text-on-surface/80 max-w-sm leading-relaxed italic"
           >
             &ldquo;{agentMessage}&rdquo;
           </motion.p>
