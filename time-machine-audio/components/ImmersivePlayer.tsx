@@ -8,6 +8,7 @@ import { WordHighlight } from './WordHighlight';
 import { TalkToHistory } from './TalkToHistory';
 import { VoiceCloneModal } from './VoiceCloneModal';
 import { SourcePanel } from './SourcePanel';
+import { ShareCard } from './ShareCard';
 import type { Episode } from '@/lib/types';
 
 interface ImmersivePlayerProps {
@@ -313,6 +314,9 @@ export function ImmersivePlayer({ episode }: ImmersivePlayerProps) {
 
       {/* Source Panel */}
       <SourcePanel sourceUrls={episode.source_urls ?? []} />
+
+      {/* Share Card */}
+      <ShareCard episode={episode} />
     </div>
   );
 }
