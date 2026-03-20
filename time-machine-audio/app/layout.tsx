@@ -1,23 +1,26 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Manrope, Inter } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const manrope = Manrope({
+  variable: "--font-manrope",
   subsets: ["latin"],
+  weight: ["200", "400", "700", "800"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
+  weight: ["300", "400", "600"],
 });
 
 export const metadata: Metadata = {
   title: "Time Machine Audio — History you don't just hear.",
-  description: "Voice-controlled time machine that generates immersive historical audio documentaries. Talk to history.",
+  description:
+    "Voice-controlled time machine that generates immersive historical audio documentaries. Talk to history.",
   openGraph: {
     title: "Time Machine Audio",
-    description: "History you don't just hear.",
+    description: "History you don't just hear. History you live.",
     type: "website",
   },
 };
@@ -30,9 +33,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${manrope.variable} ${inter.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col font-body">
+        <div className="fixed inset-0 grain-overlay z-50" />
+        {children}
+      </body>
     </html>
   );
 }
