@@ -1,0 +1,27 @@
+{
+  "functions": {
+    "app/api/generate/route.ts": {
+      "maxDuration": 120,
+      "memory": 512
+    },
+    "app/api/generate/script/route.ts": {
+      "maxDuration": 60,
+      "memory": 512
+    },
+    "app/api/generate/media/route.ts": {
+      "maxDuration": 300,
+      "memory": 1024
+    },
+    "app/api/generate/finalize/route.ts": {
+      "maxDuration": 120,
+      "memory": 512
+    },
+    "app/api/voice-clone/route.ts": {
+      "maxDuration": 120,
+      "memory": 512
+    },
+    "app/api/webhook/route.ts": {
+      "maxDuration": 10
+    }
+  }
+}

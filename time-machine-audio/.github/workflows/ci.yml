@@ -1,0 +1,38 @@
+name: CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: time-machine-audio/package-lock.json
+      - run: npm ci
+        working-directory: time-machine-audio
+      - run: npm run lint
+        working-directory: time-machine-audio
+      - run: npx tsc --noEmit
+        working-directory: time-machine-audio
+      - run: npm run build
+        working-directory: time-machine-audio
+        env:
+          FIRECRAWL_API_KEY: dummy
+          GEMINI_API_KEY: dummy
+          ELEVENLABS_API_KEY: dummy
+          DATABASE_URL: dummy
+          BLOB_READ_WRITE_TOKEN: dummy
+          NEXT_PUBLIC_APP_URL: https://example.com
+          INTERNAL_SECRET: dummy-secret-for-ci-build
