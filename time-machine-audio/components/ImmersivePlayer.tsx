@@ -7,6 +7,7 @@ import { SceneIllustration } from './SceneIllustration';
 import { WordHighlight } from './WordHighlight';
 import { TalkToHistory } from './TalkToHistory';
 import { VoiceCloneModal } from './VoiceCloneModal';
+import { SourcePanel } from './SourcePanel';
 import type { Episode } from '@/lib/types';
 
 interface ImmersivePlayerProps {
@@ -309,6 +310,9 @@ export function ImmersivePlayer({ episode }: ImmersivePlayerProps) {
 
       {/* Voice Clone Modal */}
       <VoiceCloneModal episodeId={episode.id} era={episode.era ?? ''} />
+
+      {/* Source Panel */}
+      <SourcePanel sourceUrls={episode.source_urls ?? []} />
     </div>
   );
 }
