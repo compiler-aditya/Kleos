@@ -214,6 +214,28 @@ export async function updateEpisodeProgress(
   );
 }
 
+// ── Voice Clone ────────────────────────────────────────────────
+
+export async function saveUserVoice(
+  id: string,
+  voiceId: string,
+  portraitUrl: string | null,
+  audioUrl: string
+): Promise<void> {
+  await query(
+    `UPDATE episodes SET
+      user_voice_id = $2,
+      user_character_role = 'bystander',
+      character_portraits = COALESCE(character_portraits, '{}'::jsonb)
+        || jsonb_build_object('user', $3),
+      sfx_urls = COALESCE(sfx_urls, '{}'::jsonb)
+        || jsonb_build_object('you_were_there', $4),
+      updated_at = NOW()
+    WHERE id = $1`,
+    [id, voiceId, portraitUrl, audioUrl]
+  );
+}
+
 // ── Conversations ──────────────────────────────────────────────
 
 export async function saveConversation(data: {
