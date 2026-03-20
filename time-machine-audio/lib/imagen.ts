@@ -135,3 +135,41 @@ export async function generateCharacterPortraits(
 
   return portraits;
 }
+
+// ── User Bystander Portrait ──────────────────────────────────────
+
+export async function generateUserPortrait(
+  era: string,
+  eventTitle: string,
+  episodeId: string
+): Promise<string | null> {
+  try {
+    return await withRetry(
+      async () => {
+        const prompt = `A bystander or journalist photographed at "${eventTitle}" in ${era}. Period-accurate clothing, candid documentary photography style, slightly desaturated cinematic color grading. Head and shoulders framing. Eye contact with camera. NO TEXT OR LETTERS IN THE IMAGE.`;
+
+        const response = await ai.models.generateImages({
+          model: 'imagen-4.0-fast-generate-001',
+          prompt,
+          config: { numberOfImages: 1, aspectRatio: '3:4' },
+        });
+
+        const imageBytes = response.generatedImages?.[0]?.image?.imageBytes;
+        if (!imageBytes) throw new Error('No image bytes for user portrait');
+
+        const url = await uploadFromBase64(
+          imageBytes,
+          `episodes/${episodeId}/portraits/user.jpg`,
+          'image/jpeg'
+        );
+
+        console.log('[imagen] User portrait uploaded');
+        return url;
+      },
+      { maxRetries: 2, label: 'user-portrait' }
+    );
+  } catch (err) {
+    console.error('[imagen] User portrait failed (non-fatal):', err);
+    return null;
+  }
+}
